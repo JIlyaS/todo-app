@@ -1,8 +1,11 @@
 import React from "react";
-import styles from "./App.module.scss";
+import AuthForm from "../../components/AuthForm/AuthForm";
+import styles from "./styles.module.scss";
 
 function App() {
-  return <div>App</div>;
+  return <div>
+    <AuthForm />
+  </div>;
 }
 
 export default App;
