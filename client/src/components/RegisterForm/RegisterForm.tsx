@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { checkRegister } from "../../action-creator/action-creator";
 
-import styles from "./styles.module.scss";
+import { IRegisterForm } from "../../interfaces";
 import { useHttp } from "../../hooks/http.hooks";
 
-interface IProps {
-  isAuthenticated: Boolean
-}
+import styles from "./styles.module.scss";
 
-const RegisterForm = ({isAuthenticated}: IProps) => {
+
+const RegisterForm: React.FC<IRegisterForm> = ({isAuthenticated, checkRegister}) => {
 
   const {loading, error, request} = useHttp();
 
@@ -20,7 +22,7 @@ const RegisterForm = ({isAuthenticated}: IProps) => {
   });
 
   // Временное решение
-  const changeHandler = (event: any) => {
+  const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [event.target.name]: event.target.value });
   };
   
@@ -36,14 +38,13 @@ const RegisterForm = ({isAuthenticated}: IProps) => {
   //   console.log(error.message);
   // }, [error]);
 
-  const registerHandler = async (evt: any) => {
+  const registerHandler = (evt: React.FormEvent) => {
     evt.preventDefault();
-    try {
-      const data = await request("/api/auth/register", "POST", {...form});
-      console.log('Data', data);
-    } catch (err) {
+ 
+      // const data = await request("/api/auth/register", "POST", {...form});
+      // console.log('Data', data);
 
-    }
+      checkRegister(form);
   }
 
   return <div className={styles.RegisterForm}>
@@ -51,7 +52,7 @@ const RegisterForm = ({isAuthenticated}: IProps) => {
       <div className={styles.RegisterForm__logo_block}>
         <span className={styles.RegisterForm__logo}>ToDo</span>
       </div>
-      <form action="/api/auth/register" method="post">
+      <form action="/api/auth/register" method="post" onSubmit={registerHandler}>
         <div className={styles.RegisterForm__group}>
           <input
             className={styles.RegisterForm__input}
@@ -86,7 +87,7 @@ const RegisterForm = ({isAuthenticated}: IProps) => {
           <button
             className={styles.RegisterForm__btn_submit}
             type="submit"
-            onClick={registerHandler}
+            // onClick={registerHandler}
             disabled={loading}
           >
             Зарегистрироваться
@@ -100,4 +101,12 @@ const RegisterForm = ({isAuthenticated}: IProps) => {
   </div>;
 }
 
-export default RegisterForm;
+const mapDispatchToProps = (dispatch: any) => {
+  return bindActionCreators({
+    checkRegister
+  }, dispatch);
+}
+
+export {RegisterForm};
+
+export default connect(null, mapDispatchToProps)(RegisterForm);

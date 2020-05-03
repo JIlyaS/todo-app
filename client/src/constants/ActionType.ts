@@ -1,0 +1,7 @@
+export const ActionType = {
+  FETCH_LOGIN: `AUTH/FETCH_LOGIN`,
+  FETCH_REGISTER: `AUTH/FETCH_REGISTER`
+};
+
+// export const FETCH_LOGIN = `AUTH/FETCH_LOGIN`;
+// export const FETCH_REGISTER = `AUTH/FETCH_REGISTER`;

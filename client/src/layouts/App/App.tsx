@@ -5,12 +5,11 @@ import MainLayout from "../MainLayout/MainLayout";
 import PrivateRoute from "../../components/PrivateRoute/PrivateRoute";
 import RegisterForm from "../../components/RegisterForm/RegisterForm";
 
-function App() {
+const App: React.FC = () => {
 
   const isAuthenticated = false;
 
   return <div>
-    {/* <AuthForm /> */}
     <Switch>
       <PrivateRoute path="/" isAuthenticated={isAuthenticated} exact>
         <MainLayout />

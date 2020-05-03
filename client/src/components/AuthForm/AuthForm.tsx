@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { checkLogin } from "../../action-creator/action-creator";
 
+import { IAuthForm } from "../../interfaces";
 import { useHttp } from "../../hooks/http.hooks";
 
 import styles from "./styles.module.scss";
 
-interface IProps {
-  isAuthenticated: Boolean
-}
-
-const AuthForm = ({isAuthenticated}: IProps) => {
+const AuthForm: React.FC<IAuthForm> = ({isAuthenticated, checkLogin}) => { // {isAuthenticated}: IProps
   
   const history = useHistory();
 
@@ -27,19 +27,20 @@ const AuthForm = ({isAuthenticated}: IProps) => {
     password: ''
   });
 
+  // useState<string>('')
+
   // Временное решение
-  const changeHandler = (event: any) => {
+  const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [event.target.name]: event.target.value });
   };
 
-  const authHandler = async (evt: any) => {
+  const authHandler = (evt: React.FormEvent) => {
     evt.preventDefault();
-    try {
-      const data = await request("/api/auth/login", "POST", {...form});
-      console.log('Data', data);
-    } catch (err) {
+ 
+    // const data = await request("/api/auth/login", "POST", {...form});
+    // console.log('Data', data);
 
-    }
+    checkLogin(form);
   }
 
   return <div className={styles.AuthForm}>
@@ -47,7 +48,7 @@ const AuthForm = ({isAuthenticated}: IProps) => {
       <div className={styles.AuthForm__logo_block}>
         <span className={styles.AuthForm__logo}>ToDo</span>
       </div>
-      <form action="/api/auth/login" method="post">
+      <form action="/api/auth/login" method="post" onSubmit={authHandler}>
         <div className={styles.AuthForm__group}>
           {/* <label className={styles.AuthForm__label} htmlFor="email">Email</label> */}
           <input
@@ -74,7 +75,6 @@ const AuthForm = ({isAuthenticated}: IProps) => {
           <button
             className={styles.AuthForm__btn_submit}
             type="submit"
-            onClick={authHandler}
             disabled={loading}
           >
             Войти
@@ -88,4 +88,12 @@ const AuthForm = ({isAuthenticated}: IProps) => {
   </div>;
 }
 
-export default AuthForm;
+const mapDispatchToProps = (dispatch: any) => {
+  return bindActionCreators({
+    checkLogin
+  }, dispatch);
+}
+
+export {AuthForm};
+
+export default connect(null, mapDispatchToProps)(AuthForm);
