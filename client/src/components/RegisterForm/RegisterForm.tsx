@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { checkRegister } from "../../action-creator/action-creator";
@@ -25,18 +25,6 @@ const RegisterForm: React.FC<IRegisterForm> = ({isAuthenticated, checkRegister})
   const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [event.target.name]: event.target.value });
   };
-  
-  const history = useHistory();
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      history.push("/");
-    }
-  }, []);
-
-  // useEffect(() => {
-  //   console.log(error.message);
-  // }, [error]);
 
   const registerHandler = (evt: React.FormEvent) => {
     evt.preventDefault();

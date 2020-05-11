@@ -1,15 +1,42 @@
 import { ActionType } from '../constants/ActionType';
 
-export const checkLogin = (authParams: any) => {
+export const checkLogin = (payload: any) => {
   return {
-    type: ActionType.FETCH_LOGIN,
-    payload: authParams
+    type: ActionType.CHECK_LOGIN,
+    payload
   }
 }
 
-export const checkRegister = (regParams: any) => {
+export const isAuth = (payload: any) => {
   return {
-    type: ActionType.FETCH_REGISTER,
-    payload: regParams
+    type: ActionType.IS_AUTH,
+    payload
+  }
+}
+
+export const getLogin = (payload: any) => {
+  return {
+    type: ActionType.GET_LOGIN,
+    payload
+  }
+}
+
+export const failureLogin = (payload: any) => {
+  return {
+    type: ActionType.FAILURE_LOGIN,
+    payload
+  }
+}
+
+export const checkRegister = (payload: any) => {
+  return {
+    type: ActionType.CHECK_REGISTER,
+    payload
+  }
+}
+
+export const checkLogout = () => {
+  return {
+    type: ActionType.CHECK_LOGOUT
   }
 }

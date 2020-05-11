@@ -1,20 +1,47 @@
 import {ActionType} from '../../constants/ActionType';
 
 const initialState = {
-  isAuthenticated: false
+  token: null,
+  userId: null,
+  isAuthenticated: false,
 };
 
-const authReducer = (state = initialState, action: { payload: any; type: String; }) => {
+const authReducer = (state = initialState, action: { payload: {token?: String, userId?: String}; type: String; }) => {
   switch (action.type) {
-    case ActionType.FETCH_LOGIN:
+    case ActionType.IS_AUTH:
       return {
         ...state,
         isAuthenticated: action.payload
       }
-    case ActionType.FETCH_REGISTER:
+    case ActionType.CHECK_LOGIN:
       return {
         ...state,
-        isAuthenticated: action.payload
+      }
+    case ActionType.GET_LOGIN:
+      return {
+        ...state,
+        token: action.payload.token,
+        userId: action.payload.userId,
+        isAuthenticated: true,
+      }
+    case ActionType.CHECK_REGISTER:
+      return {
+        ...state,
+        token: action.payload.token,
+        userId: action.payload.userId,
+        isAuthenticated: true,
+      }
+    case ActionType.FAILURE_LOGIN:
+      return {
+        ...state,
+        loading: false
+      }
+    case ActionType.CHECK_LOGOUT:
+      return {
+        ...state,
+        token: null,
+        userId: null,
+        isAuthenticated: false
       }
     // case ActionType.FETCH_OFFERS_REQUEST:
     //   return Object.assign({}, state, {

@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { checkLogin } from "../../action-creator/action-creator";
@@ -10,14 +10,6 @@ import { useHttp } from "../../hooks/http.hooks";
 import styles from "./styles.module.scss";
 
 const AuthForm: React.FC<IAuthForm> = ({isAuthenticated, checkLogin}) => { // {isAuthenticated}: IProps
-  
-  const history = useHistory();
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      history.push("/");
-    }
-  }, []);
 
   const {loading, error, request} = useHttp();
 

@@ -1,17 +1,29 @@
 import api from '../../api/auth';
-// import { browserHistory } from 'react-router';
-import history from '../../history';
 import { takeLatest, call, put } from 'redux-saga/effects';
-// import { checkLogin } from '../../action-creator/action-creator';
+import { getLogin, checkRegister, checkLogout, isAuth } from '../../action-creator/action-creator';
 import {ActionType} from '../../constants/ActionType';
 
 
 /** saga worker that is responsible for the side effects */
 function* loginEffectSaga(action) {
+
   try {
+    // yield put(fetchLogin());
     // data is obtained after axios call is resolved
     let { data } = yield call(api.checkLogin, action.payload);
-    console.log("function*loginEffectSaga -> data", data);
+
+    const userData = JSON.parse(localStorage.getItem('userData'));
+
+    if (userData && userData.token) {
+      yield put(getLogin(userData));
+    } else {
+      yield put(getLogin(data));
+    }
+
+    localStorage.setItem('userData', JSON.stringify({
+      token: data.token,
+      userId: data.userId
+    }));
     
     // store data to localStorage
     // Object.keys(data.session).forEach(key, => {
@@ -20,7 +32,6 @@ function* loginEffectSaga(action) {
     // dispatch action to change redux state
     // yield put(updateProfile(data.profile));
     // redirect to home route after successful login
-    // history.push('/');
   } catch (e) {
     // catch error on a bad axios call
     // alert using an alert library
@@ -31,7 +42,21 @@ function* registerEffectSaga(action) {
   try {
     // data is obtained after axios call is resolved
     let { data } = yield call(api.checkRegister, action.payload);
-    console.log(data);
+
+    const userData = JSON.parse(localStorage.getItem('userData'));
+
+    if (userData && userData.token) {
+      yield put(getLogin(userData));
+    } else {
+      yield put(checkRegister(data));
+    }
+
+    localStorage.setItem('userData', JSON.stringify({
+      token: data.token,
+      userId: data.userId
+    }));
+
+
     
     // store data to localStorage
     // Object.keys(data.session).forEach(key, => {
@@ -40,10 +65,22 @@ function* registerEffectSaga(action) {
     // dispatch action to change redux state
     // yield put(updateProfile(data.profile));
     // redirect to home route after successful login
-    // browserHistory.push('/home');
   } catch (e) {
     // catch error on a bad axios call
     // alert using an alert library
+  }
+}
+
+function* logoutEffectSaga() {
+  try {
+
+    localStorage.removeItem('userData');
+
+    yield put(checkLogout());
+    
+    
+  } catch (e) {
+    
   }
 }
 
@@ -53,9 +90,13 @@ function* registerEffectSaga(action) {
  * 'LOGIN_WATCHER'
  */
 export function* loginWatcherSaga() {
-  yield takeLatest(ActionType.FETCH_LOGIN, loginEffectSaga);
+  yield takeLatest(ActionType.CHECK_LOGIN, loginEffectSaga);
 }
 
 export function* registerWatcherSaga() {
-  yield takeLatest(ActionType.FETCH_REGISTER, registerEffectSaga);
+  yield takeLatest(ActionType.CHECK_REGISTER, registerEffectSaga);
+}
+
+export function* logoutWatcherSaga() {
+  yield takeLatest(ActionType.CHECK_LOGOUT, logoutEffectSaga);
 }

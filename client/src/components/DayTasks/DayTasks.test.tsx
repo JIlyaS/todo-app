@@ -1,6 +1,6 @@
 import React from "react";
 import { render } from "@testing-library/react";
-import AuthForm from "./AuthForm";
+import DayTasks from "./DayTasks";
 
 test("renders learn react link", () => {
   // const { getByText } = render(<AuthForm />);
