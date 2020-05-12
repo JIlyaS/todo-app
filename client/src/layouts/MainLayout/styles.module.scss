@@ -1,12 +1,17 @@
+@import 'styles/global/_variables.scss';
+@import 'styles/global/_mixins.scss';
+
 .MainLayout {
   display: flex;
   &__menu {
     width: 300px;
     height: 100vh;
+    background-color: $white;
   }
 
   &__content {
     width: calc(100vw - 300px);
     height: 100vh;
+    background-color: $light-blue;
   }
 }

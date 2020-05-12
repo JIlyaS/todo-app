@@ -1,34 +1,25 @@
 import React from "react";
 
+import UserMenu  from "../UserMenu/UserMenu";
 import NavBar from "../NavBar/NavBar";
 import { IAuthForm } from "../../interfaces";
 
 import styles from "./styles.module.scss";
+import ListBtnBlock from "../ListBtnBlock/ListBtnBlock";
 
 const AsideMenu: React.FC = () => {
 
   return <div className={styles.AsideMenu}>
     <div className={styles.AsideMenu__logo}>
-      <span className={styles.AsideMenu__logo}>ToDo</span>
+      ToDo list
     </div>
     <div className={styles.AsideMenu__user}>
-      <button type="button">
-        <span>Илья Колмаков</span>
-      </button>
+      <UserMenu />
+      <div className={styles.AsideMenu__search}></div>
     </div>
     <NavBar />
+    <ListBtnBlock />
   </div>;
 }
 
-// const mapDispatchToProps = (dispatch: any) => {
-//   return bindActionCreators({
-//     checkLogin
-//   }, dispatch);
-// }
-
-// export {AuthForm};
-
-// export default connect(null, mapDispatchToProps)(AuthForm);
-
 export default AsideMenu;
-

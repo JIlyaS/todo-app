@@ -1,0 +1,18 @@
+@import 'styles/global/_variables.scss';
+@import 'styles/global/_mixins.scss';
+
+.AsideMenu {
+  &__logo {
+    padding: rem(10) rem(20) rem(15);
+
+    font-family: "Libre Franklin";
+    font-weight: 300;
+    font-size: rem(14);
+    letter-spacing: 1px;
+  }
+
+  &__user {
+    display: flex;
+    // margin-bottom: 
+  }
+}

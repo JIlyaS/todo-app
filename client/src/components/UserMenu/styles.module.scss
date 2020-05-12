@@ -1,0 +1,22 @@
+@import 'styles/global/_variables.scss';
+@import 'styles/global/_mixins.scss';
+
+.UserMenu {
+  width: rem(250);
+
+  &__btn {
+    width: 100%;
+    height: rem(50);
+    padding-left: rem(20);
+    padding-right: rem(20);
+
+    background-color: transparent;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  &__username {
+    font-size: rem(16);
+  }
+}
