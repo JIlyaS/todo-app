@@ -1,0 +1,80 @@
+@import 'styles/global/_variables.scss';
+@import 'styles/global/_mixins.scss';
+
+.RegisterForm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: $dark-blue;
+
+  &__block {
+    position: relative;
+    z-index: 1;
+  
+    max-width: rem(380);
+    width: rem(380);
+    padding: rem(45);
+  
+    text-align: center;
+    background-color: $white;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+  }
+
+  &__logo_block {
+    margin-bottom: rem(25);
+  }
+
+  &__logo {
+    text-align: center;
+    font-family: "Libre Franklin";
+    font-weight: 300;
+    font-size: rem(26);
+    letter-spacing: 1px;
+  }
+
+  &__group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    margin-bottom: rem(15);
+  }
+
+  &__label {
+    margin-bottom: rem(5);
+    color: $dark-blue;
+  }
+
+  &__input {
+    width: 100%;
+    background: #f2f2f2;
+    padding: rem(15);
+    font-size: rem(14);
+    border: none;
+  }
+
+  &__btn_submit {
+    text-transform: uppercase;
+    background: $main-color;
+    width: 100%;
+    border: 0;
+    padding: rem(15);
+    color: $white;
+    font-size: rem(14);
+
+    transition: all 0.3 ease;
+    cursor: pointer;
+  }
+
+  &__paragraph {
+    margin-top: rem(15);
+    color: #b3b3b3;
+    font-size: rem(12);
+  }
+
+  &__account_link {
+    color: $main-color;
+    text-decoration: none;
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "port": 3006,
+  "mongoUri": "mongodb+srv://jilyas:AA11BB22cc33@cluster0-px3n6.azure.mongodb.net/todo",
+  "jwtSecret": "jilyas todo app"
+}
