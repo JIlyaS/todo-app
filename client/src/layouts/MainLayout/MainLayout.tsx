@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Route} from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 
 import AsideMenu from "../../components/AsideMenu/AsideMenu";
 import DayTasks from "../../components/DayTasks/DayTasks";
@@ -14,16 +14,19 @@ const MainLayout = () => {
     <div className={styles.MainLayout__menu}>
       <AsideMenu />
     </div>
-    <div className={styles.MainLayout__content}>
-      <Switch>
+    <main className={styles.MainLayout__content}>
+        <Route path="/daytasks" component={DayTasks}>
+        </Route>
+        <Route path="/favorite" component={FavoriteTasks}>
+        </Route>
+        <Route path="/plan">
+          
+        </Route>
         <Route path="/tasks">
-          <DayTasks />
+          
         </Route>
-        <Route path="/favorite">
-          <FavoriteTasks />
-        </Route>
-      </Switch>
-    </div>
+        <Redirect to="/daytasks" />
+    </main>
   </div>;
 }
 
